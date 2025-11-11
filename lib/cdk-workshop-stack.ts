@@ -13,5 +13,10 @@ export class CdkWorkshopStack extends Stack {
       code: Code.fromAsset('lambda'), // code loaded from lambda dir
       handler: 'hello.handler', // file is 'hello', function is 'handler'
     })
+
+    // defines an API Gateway REST API resource backed by our "hello" function.
+    const gateway = new LambdaRestApi(this, "Endpoint", {
+      handler: hello,
+    })
   }
 }
