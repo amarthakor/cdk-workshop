@@ -1,10 +1,16 @@
 import { Stack, StackProps } from "aws-cdk-lib";
 import { Construct } from "constructs";
+import {Code, Function, Runtime} from "aws-cdk-lib/aws-lambda";
 
 export class CdkWorkshopStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    //Nothing Here
+    // defines an AWS lambda resource
+    const hello = new Function(this, "HelloHandler", {
+      runtime: Runtime.NODEJS_22_X, // execution environment
+      code: Code.fromAsset('lambda'), // code loaded from lambda dir
+      handler: 'hello.handler', // file is 'hello', function is 'handler'
+    })
   }
 }
