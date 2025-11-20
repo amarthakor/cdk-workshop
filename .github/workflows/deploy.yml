@@ -49,9 +49,9 @@ jobs:
         run: |
           echo "image_url=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}" >> "$GITHUB_OUTPUT"
 
-      - name: Update requestbin.json with image URI
+      - name: Update requestbin.json with image URL
         run: |
-          IMAGE_URL="${{ steps.push-image.outputs.image_uri }}"
+          IMAGE_URL="${{ steps.push-image.outputs.image_url }}"
 
           if [ ! -f requestbin.json ]; then
             echo '{"image_url": ""}' > requestbin.json
@@ -66,5 +66,5 @@ jobs:
           git config user.email "actions@github.com"
 
           git add requestbin.json
-          git commit -m "Update image URL to ${{ steps.push-image.outputs.image_urL }}" || echo "No changes to commit"
+          git commit -m "Update image URL to ${{ steps.push-image.outputs.image_url }}" || echo "No changes to commit"
           git push
